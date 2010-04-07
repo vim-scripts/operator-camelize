@@ -1,0 +1,7 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3046
+
+*operator-camelize* is a Vim plugin to provide an operator
+to camelize/decamelize a specified text.
+
+Requirements:
+- |operator-user| (vimscript#2692)
