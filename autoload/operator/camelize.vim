@@ -55,13 +55,29 @@ endfunction "}}}
 
 " s:camelize_word('snake_case') " => 'SnakeCase'
 function! s:camelize_word(word) "{{{
-    " NOTE: Nested sub-replace-expression is not recognized...omg
+    " NOTE: Nested sub-replace-expression can't work...omg
     " (:help sub-replace-expression)
     "
     " return substitute(tolower(a:word), '^[a-z]\|_\zs[a-z]'.'\C', '\=toupper(submatch(0))', 'g')
 
     let word = a:word
+    let action = g:operator_camelize_all_uppercase_action
     let regex = '^[a-z]\|_[a-z]'.'\C'
+
+    if word =~# '^[A-Z]\+$'
+        if action ==# 'nop'
+            return word
+        elseif action ==# 'lowercase'
+            return tolower(word)
+        elseif action ==# 'camelize'
+            return toupper(word[0]) . tolower(word[1:])
+        else
+            echohl WarningMsg
+            echomsg "g:operator_camelize_all_uppercase_action is invalid value '"
+            \       . g:operator_camelize_all_uppercase_action . "'."
+            echohl None
+        endif
+    endif
 
     while 1
         let offset = match(word, regex)
@@ -84,7 +100,7 @@ endfunction "}}}
 
 " s:decamelize_word('CamelCase') " => 'camel_case'
 function! s:decamelize_word(word) "{{{
-    " NOTE: Nested sub-replace-expression is not recognized...omg
+    " NOTE: Nested sub-replace-expression can't work...omg
     " (:help sub-replace-expression)
     "
     " return substitute(a:word, '^[A-Z]\|[a-z]\zs[A-Z]'.'\C', '\='_' . tolower(submatch(0))', 'g')
@@ -93,10 +109,19 @@ function! s:decamelize_word(word) "{{{
     let action = g:operator_decamelize_all_uppercase_action
     let regex = '^[A-Z]\|[a-z]\zs[A-Z]'.'\C'
 
-    if word =~# '^[A-Z]\+$' && action ==# 'nop'
-        return word
-    elseif word =~# '^[A-Z]\+$' && action ==# 'lowercase'
-        return tolower(word)
+    if word =~# '^[A-Z]\+$'
+        if action ==# 'nop'
+            return word
+        elseif action ==# 'lowercase'
+            return tolower(word)
+        elseif action ==# 'decamelize'
+            " Fall through
+        else
+            echohl WarningMsg
+            echomsg "g:operator_decamelize_all_uppercase_action is invalid value '"
+            \       . g:operator_decamelize_all_uppercase_action . "'."
+            echohl None
+        endif
     endif
 
     while 1

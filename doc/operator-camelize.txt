@@ -2,7 +2,7 @@
 
 Author:
   tyru <tyru.exe@gmail.com>
-Version: 0.0.1
+Version: 0.0.2
 License:
 " NEW BSD LICENSE {{{
 "   Copyright (c) 2009, tyru
@@ -59,12 +59,25 @@ Please map yourself as follows: >
 ------------------------------------------------------------------------------
 VARIABLES					*operator-camelize-variables* {{{
 
+g:operator_camelize_all_uppercase_action		*g:operator_camelize_all_uppercase_action*
+									(Default: "nop")
+		<Plug>(operator-camelize)'s action for word whose characters are all capitals like 'CAMEL'.
+
+		e.g., {value} is "WORD"
+		option value		{value} ~
+		"nop"				"WORD"
+		"lowercase" 		"word"
+		"camelize"			"Word"
+
 g:operator_decamelize_all_uppercase_action		*g:operator_decamelize_all_uppercase_action*
 									(Default: "nop")
-		Action for word whose characters are all capitals like 'CAMEL'.
-		"nop"        : Do nothing
-		"lowercase"  : Do lower-case
-		"decamelize" : Do decamelize
+		<Plug>(operator-decamelize)'s action for word whose characters are all capitals like 'CAMEL'.
+
+		e.g., {value} is "WORD"
+		option value		{value} ~
+		"nop"				"WORD"
+		"lowercase" 		"word"
+		"decamelize"		"w_o_r_d"
 }}}
 }}}
 ==============================================================================
@@ -72,6 +85,11 @@ CHANGELOG						*operator-camelize-changelog* {{{
 
 0.0.0:
 - Initial upload
+0.0.1:
+- Refactoring.
+0.0.2:
+- Implement g:operator_camelize_all_uppercase_action.
+- Fix document descriptions.
 
 }}}
 ==============================================================================
