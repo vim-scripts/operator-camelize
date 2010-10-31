@@ -5,3 +5,6 @@ to camelize/decamelize a specified text.
 
 Requirements:
 - |operator-user| (vimscript#2692)
+
+Repository:
+http://github.com/tyru/operator-camelize.vim
