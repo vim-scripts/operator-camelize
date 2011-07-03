@@ -2,7 +2,7 @@
 
 Author:
   tyru <tyru.exe@gmail.com>
-Version: 0.0.4
+Version: 0.0.5a
 License: Under the same license as Vim itself (see :help license)
 
 ==============================================================================
@@ -36,6 +36,10 @@ KEYMAPPINGS					*operator-camelize-keymappings* {{{
 
 <Plug>(operator-decamelize)
 	Do decamelize.
+
+<Plug>(operator-camelize-toggle)
+	Do decamelize if a word is camelized.
+	Do camelize otherwise.
 
 
 No default keymappings.
@@ -98,6 +102,11 @@ CHANGELOG						*operator-camelize-changelog* {{{
 - Fix doc: operator-replace => operator-camelize (thanks thinca for reporting)
 - Support camelCase. not only PascalCase. (thanks thinca for reporting)
 - Add operator#camelize#load().
+0.0.5:
+- Add <Plug>(operator-camelize-toggle)
+0.0.5a:
+- Fix problem that it evaluates lower camelcase as snakecase. (e.g., camelCase).
+
 }}}
 ==============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl:noet:fdm=marker:fen
